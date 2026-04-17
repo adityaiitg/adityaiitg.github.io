@@ -34,33 +34,8 @@ An autonomous code editor is one of the most technically demanding Agentic AI sy
 
 ## 2. High-Level Architecture
 
-```mermaid
-flowchart TD
-    subgraph IDE ["IDE / UI Layer"]
-        UserInterface["VS Code Extension / Web Editor / CLI"]
-    end
+![Autonomous Code Editor Architecture](assets/agent-code-editor-arch.png)
 
-    subgraph Logic ["Orchestration Layer"]
-        AgentLoop["Agent Loop: ReAct / LangGraph"]
-        ContextManager["Context Manager + Memory"]
-    end
-
-    subgraph Engine ["LLM & Context"]
-        LLM["LLM Engine (GPT-5.4 / Claude Opus)"]
-        CodebaseIndex["Codebase Index (AST + Semantic + Graph)"]
-    end
-
-    subgraph Execution ["Tool Execution Engine"]
-        Tools["read_file | edit_file | run_terminal | search_codebase | run_tests | web_search"]
-    end
-
-    UserInterface -- "User query + editor context" --> AgentLoop
-    AgentLoop --- ContextManager
-    AgentLoop -- "Inference" --> LLM
-    AgentLoop -- "Retrieval" --> CodebaseIndex
-    LLM -- "Tool Intent" --> Tools
-    Tools -- "Observations" --> AgentLoop
-```
 
 ---
 
@@ -145,28 +120,7 @@ For a multi-file refactor task ("Migrate all uses of the old `Logger` class to t
 [Final Answer]: Migration complete. Updated 3 files. All 47 tests pass.
 ```
 
-### State Machine vs. Raw ReAct
-
-For a production code editor, a **raw ReAct loop is insufficient**. Use a **LangGraph state machine** with explicit nodes:
-
-```mermaid
-stateDiagram-v2
-    [*] --> Plan
-    Plan --> ReadContext
-    ReadContext --> ExecuteEdits
-    ExecuteEdits --> RunTests
-    
-    state RunTests {
-        direction LR
-        VerifyEdits --> AllTestsPass
-        VerifyEdits --> TestsFail
-    }
-    
-    AllTestsPass --> Done
-    TestsFail --> DebugRetry
-    DebugRetry --> ExecuteEdits
-    Done --> [*]
-```
+![AI Agent State Machine Logic](assets/agent-state-machine.png)
 
 This prevents the agent from entering an infinite correction loop and gives you explicit retry/abort policies.
 

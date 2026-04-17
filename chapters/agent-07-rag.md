@@ -15,14 +15,8 @@ The gap between a standalone LLM and a production-grade knowledge agent:
 
 ## 2. The Standard RAG Pipeline
 
-```mermaid
-flowchart LR
-    Query["User Query"] --> Embed["Embed Query"]
-    Embed --> Search["Vector DB Search (top-K)"]
-    Search --> Augment["Augment Prompt with Chunks"]
-    Augment --> LLM["LLM Generation"]
-    LLM --> Answer["Cited Answer"]
-```
+![Standard RAG Pipeline](assets/agent-rag-pipeline.png)
+
 
 **Step 1 — Retrieval:** The user's query is embedded. The Vector DB runs ANN search and returns the top-K most semantically relevant document chunks (typically K=5–20).
 

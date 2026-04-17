@@ -11,14 +11,8 @@ The agentic execution cycle has four distinct steps, run repeatedly until the ag
 3. **Execution:** Your server-side code parses the payload, executes the actual Python function or API call, and collects the result.
 4. **Observation Injection:** The result is injected back into the conversation as a `tool_result` message. The model reads it and decides whether to call another tool or synthesize the final answer.
 
-```mermaid
-graph TD
-    A[Tool Definition] --> B[LLM Generates Tool Call]
-    B --> C[Infrastructure Executes Tool]
-    C --> D[Observation Injected to Context]
-    D --> B
-    D --> E[Final Answer Synthesized]
-```
+![Agentic Tool Use Loop](assets/agent-tool-loop.png)
+
 
 > **Common Gotcha:** The model does not run code. Your application does. The model only *declares intent* in a structured format. You are responsible for safe execution.
 
