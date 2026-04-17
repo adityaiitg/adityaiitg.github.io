@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter | ML System Design</title>
+    <meta name="description" content="A chapter from Machine Learning System Design.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@200;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.5);
+            --secondary: #a855f7;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 120px 5% 5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        #content {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-main);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        h1 { font-size: 2.5rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
+
+        p { margin-bottom: 1rem; color: var(--text-dim); }
+        
+        a { color: var(--primary); text-decoration: none; transition: 0.3s; }
+        a:hover { color: var(--secondary); text-decoration: underline; }
+
+        ul, ol { margin-bottom: 1rem; padding-left: 2rem; color: var(--text-dim); }
+        li { margin-bottom: 0.5rem; }
+
+        pre {
+            background: #1e293b;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+            border: 1px solid var(--glass-border);
+        }
+        
+        code {
+            font-family: monospace;
+            background: rgba(255,255,255,0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--secondary);
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: var(--text-main);
+        }
+
+        blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            margin-left: 0;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        th, td {
+            border: 1px solid var(--glass-border);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        th { background: rgba(255,255,255,0.05); }
+
+        img { max-width: 100%; border-radius: 8px; }
+
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">MLSD.IO</a>
+    </header>
+
+    <main>
+        <div id="content">Loading chapter...</div>
+    </main>
+
+    <script>
+        // Use marked.js to render the markdown content
+        async function loadContent() {
+            try {
+                // Determine which file to load
+                const urlParams = new URLSearchParams(window.location.search);
+                const file = urlParams.get('file') || 'ml-system-design';
+                let filePath = file === 'ml-system-design' 
+                    ? 'ml-system-design-processed.md' 
+                    : `Machine-Learning-Interviews/src/MLSD/${file}.md`;
+
+                const response = await fetch(filePath);
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to load file: ${response.status} ${response.statusText}`);
+                }
+                
+                const text = await response.text();
+                document.getElementById('content').innerHTML = marked.parse(text);
+                
+                // Try to set title to the first h1
+                const firstH1 = text.match(/^#\s+(.+)$/m);
+                if (firstH1) {
+                     document.title = firstH1[1] + " | MLSD";
+                }
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('content').innerHTML = `
+                    <div style="color: #ef4444; text-align: center; padding: 2rem;">
+                        <h2>Error loading content</h2>
+                        <p>${err.message}</p>
+                        <p>This may happen if the file doesn't exist or you are viewing it directly as a local file (file://) instead of through a server.</p>
+                        <a href="index.html" style="display: inline-block; margin-top: 1rem; padding: 0.5rem 1rem; background: var(--primary); color: white; border-radius: 8px;">Return Home</a>
+                    </div>
+                `;
+            }
+        }
+
+        loadContent();
+    </script>
+</body>
+</html>
