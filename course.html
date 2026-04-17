@@ -12,6 +12,21 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#6366f1',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#6366f1',
+                lineColor: '#a855f7',
+                secondaryColor: '#a855f7',
+                tertiaryColor: '#1e293b'
+            }
+        });
+    </script>
     <style>
         :root {
             --primary: #6366f1;
@@ -357,13 +372,31 @@
                 if (!response.ok) throw new Error(`Could not find chapter: ${chapterId}`);
                 
                 const text = await response.text();
-                // Configure marked to use standard GitHub formatting
+                
+                // Configure marked
                 marked.setOptions({
                     gfm: true,
                     breaks: true
                 });
+
+                // Custom renderer for mermaid
+                const renderer = new marked.Renderer();
+                const originalCode = renderer.code.bind(renderer);
+                renderer.code = function(code, language, isEscaped) {
+                    if (language === 'mermaid') {
+                        return `<div class="mermaid">${code}</div>`;
+                    }
+                    return originalCode(code, language, isEscaped);
+                };
+
+                document.getElementById('content').innerHTML = marked.parse(text, { renderer });
                 
-                document.getElementById('content').innerHTML = marked.parse(text);
+                // Render Mermaid Diagrams
+                if (window.mermaid) {
+                    await mermaid.run({
+                        nodes: document.querySelectorAll('.mermaid'),
+                    });
+                }
                 
                 // Render Math notation
                 if (window.renderMathInElement) {
