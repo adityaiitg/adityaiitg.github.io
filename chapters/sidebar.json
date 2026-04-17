@@ -1,0 +1,22 @@
+[
+    {
+        "section": "The 9-Step Formula",
+        "items": [
+            {"id": "01-problem-formulation", "title": "1. Problem Formulation"},
+            {"id": "02-metrics", "title": "2. Metrics (Offline and Online)"},
+            {"id": "03-architectural-components", "title": "3. Architectural Components"},
+            {"id": "04-data-collection", "title": "4. Data Collection & Preparation"},
+            {"id": "05-feature-engineering", "title": "5. Feature Engineering"},
+            {"id": "06-model-development", "title": "6. Model Development"},
+            {"id": "07-prediction-service", "title": "7. Prediction Service"},
+            {"id": "08-online-testing", "title": "8. Online Testing & Deployment"},
+            {"id": "09-scaling-monitoring", "title": "9. Scaling & Monitoring"}
+        ]
+    },
+    {
+        "section": "System Design Cases",
+        "items": [
+            {"id": "case-recommender", "title": "Recommendation Systems"}
+        ]
+    }
+]
