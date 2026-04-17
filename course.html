@@ -306,14 +306,21 @@
             try {
                 // Fetch sidebar configuration
                 const sbRes = await fetch('chapters/sidebar.json');
-                sidebarData = await sbRes.json();
+                const fullSidebarData = await sbRes.json();
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                const track = urlParams.get('track') || 'ml';
+                
+                sidebarData = fullSidebarData[track];
+                if (!sidebarData) {
+                    throw new Error(`Track "${track}" not found.`);
+                }
                 
                 // Flatten items for prev/next navigation
                 flatItems = sidebarData.flatMap(section => section.items);
 
                 // Build sidebar
                 const navEl = document.getElementById('sidebar-nav');
-                const urlParams = new URLSearchParams(window.location.search);
                 const currentFile = urlParams.get('file') || flatItems[0].id;
 
                 sidebarData.forEach(section => {
@@ -326,7 +333,7 @@
                     
                     section.items.forEach(item => {
                         const link = document.createElement('a');
-                        link.href = `?file=${item.id}`;
+                        link.href = `?track=${track}&file=${item.id}`;
                         link.className = 'nav-link' + (item.id === currentFile ? ' active' : '');
                         link.textContent = item.title;
                         secDiv.appendChild(link);
@@ -382,14 +389,18 @@
 
                 if (currentIndex > 0) {
                     const prev = flatItems[currentIndex - 1];
-                    navContainer.innerHTML += `<a href="?file=${prev.id}" class="nav-btn">← Previous: ${prev.title}</a>`;
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const track = urlParams.get('track') || 'ml';
+                    navContainer.innerHTML += `<a href="?track=${track}&file=${prev.id}" class="nav-btn">← Previous: ${prev.title}</a>`;
                 } else {
                     navContainer.innerHTML += `<div></div>`;
                 }
 
                 if (currentIndex < flatItems.length - 1) {
                     const next = flatItems[currentIndex + 1];
-                    navContainer.innerHTML += `<a href="?file=${next.id}" class="nav-btn">Next: ${next.title} →</a>`;
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const track = urlParams.get('track') || 'ml';
+                    navContainer.innerHTML += `<a href="?track=${track}&file=${next.id}" class="nav-btn">Next: ${next.title} →</a>`;
                 }
 
                 // Scroll to top

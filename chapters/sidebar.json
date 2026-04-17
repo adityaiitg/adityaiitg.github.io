@@ -1,22 +1,45 @@
-[
-    {
-        "section": "The 9-Step Formula",
-        "items": [
-            {"id": "01-problem-formulation", "title": "1. Problem Formulation"},
-            {"id": "02-metrics", "title": "2. Metrics (Offline and Online)"},
-            {"id": "03-architectural-components", "title": "3. Architectural Components"},
-            {"id": "04-data-collection", "title": "4. Data Collection & Preparation"},
-            {"id": "05-feature-engineering", "title": "5. Feature Engineering"},
-            {"id": "06-model-development", "title": "6. Model Development"},
-            {"id": "07-prediction-service", "title": "7. Prediction Service"},
-            {"id": "08-online-testing", "title": "8. Online Testing & Deployment"},
-            {"id": "09-scaling-monitoring", "title": "9. Scaling & Monitoring"}
-        ]
-    },
-    {
-        "section": "System Design Cases",
-        "items": [
-            {"id": "case-recommender", "title": "Recommendation Systems"}
-        ]
-    }
-]
+{
+    "ml": [
+        {
+            "section": "The 9-Step Formula",
+            "items": [
+                {"id": "01-problem-formulation", "title": "1. Problem Formulation"},
+                {"id": "02-metrics", "title": "2. Metrics (Offline and Online)"},
+                {"id": "03-architectural-components", "title": "3. Architectural Components"},
+                {"id": "04-data-collection", "title": "4. Data Collection & Preparation"},
+                {"id": "05-feature-engineering", "title": "5. Feature Engineering"},
+                {"id": "06-model-development", "title": "6. Model Development"},
+                {"id": "07-prediction-service", "title": "7. Prediction Service"},
+                {"id": "08-online-testing", "title": "8. Online Testing & Deployment"},
+                {"id": "09-scaling-monitoring", "title": "9. Scaling & Monitoring"}
+            ]
+        },
+        {
+            "section": "System Design Cases",
+            "items": [
+                {"id": "case-recommender", "title": "Recommendation Systems"}
+            ]
+        }
+    ],
+    "agent": [
+        {
+            "section": "Agentic AI System Design",
+            "items": [
+                {"id": "agent-01-llm", "title": "1. Large Language Models"},
+                {"id": "agent-02-text-representation", "title": "2. Text Representation"},
+                {"id": "agent-03-text-generation", "title": "3. Text Generation"},
+                {"id": "agent-04-deployment", "title": "4. Deployment"},
+                {"id": "agent-05-semantic-search", "title": "5. Semantic Search"},
+                {"id": "agent-06-prompt-engineering", "title": "6. Prompt Engineering"},
+                {"id": "agent-07-rag", "title": "7. Retrieval-Augmented Generation (RAG)"},
+                {"id": "agent-08-tool-use", "title": "8. Tool Use"}
+            ]
+        },
+        {
+            "section": "Agent Design Cases",
+            "items": [
+                {"id": "agent-case-code-editor", "title": "Autonomous Code Editor (Cursor / Claude Code)"}
+            ]
+        }
+    ]
+}
