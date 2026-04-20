@@ -17,7 +17,17 @@
         {
             "section": "System Design Cases",
             "items": [
-                {"id": "case-recommender", "title": "Recommendation Systems"}
+                {"id": "case-video-recommendation", "title": "Video Recommendation System"},
+                {"id": "case-game-recommendation", "title": "Game Recommendation Engine"},
+                {"id": "case-event-recommendation", "title": "Event Recommendation System"},
+                {"id": "case-pymk", "title": "People You May Know"},
+                {"id": "case-news-feed", "title": "News Feed System"},
+                {"id": "case-ads-ranking", "title": "Ads Click Prediction"},
+                {"id": "case-search", "title": "Search System"},
+                {"id": "case-image-search", "title": "Image Search System"},
+                {"id": "case-multimodal-video-search", "title": "Multimodal Video Search"},
+                {"id": "case-harmful-content", "title": "Harmful Content Detection"},
+                {"id": "case-self-driving-cars", "title": "Self-Driving Cars"}
             ]
         }
     ],
